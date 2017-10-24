@@ -1,9 +1,12 @@
 
+#addin nuget:https://www.nuget.org/api/v2/?package=Cake.VersionReader
+
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 
 var solution = File("./src/PressureTransientAnalysis.sln");
 var buildDir = Directory("./src/Team76.PTA/bin") + Directory(configuration);
+var assemblyPath = MakeAbsolute(File((string)buildDir + @"/Team76.PTA.dll"));
 
 Task("Clean")
 	.Does(() =>
@@ -31,7 +34,7 @@ Task("Pack")
 	 .Does(() =>
 {
 
-	 var version = "1.0.0";
+	 var version = GetVersionNumber(assemblyPath);
 	 Information("Version: {0}", version);
 	 
 	 var nuGetPackSettings   = new NuGetPackSettings {
