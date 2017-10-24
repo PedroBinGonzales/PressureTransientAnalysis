@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Team76.PTA.SpecialFunctions
+﻿namespace Team76.PTA.MathFunctions
 {
     /// <summary>
     /// 
@@ -42,13 +40,13 @@ namespace Team76.PTA.SpecialFunctions
                             + 9.5733223454 * x3
                             + x4;
 
-                Ei = Math.Exp(-x) * mm / (x * nn);
+                Ei = System.Math.Exp(-x) * mm / (x * nn);
             }
             else
             {
-                x = Math.Abs(x);
+                x = System.Math.Abs(x);
 
-                Ei = -Math.Log(x)
+                Ei = -System.Math.Log(x)
                      - 0.57721566
                      + 0.99999193 * x
                      - 0.24991055 * x2
@@ -183,7 +181,7 @@ namespace Team76.PTA.SpecialFunctions
                 double A0 = 0.0;
                 double Bm1 = 0.0;
                 double B0 = 1.0;
-                double a = Math.Exp(x);
+                double a = System.Math.Exp(x);
                 double b = -x + 1.0;
                 double Ap1 = b * A0 + a * Am1;
                 double Bp1 = b * B0 + a * Bm1;
@@ -191,9 +189,9 @@ namespace Team76.PTA.SpecialFunctions
 
                 a = 1.0;
 
-                while (Math.Abs(Ap1 * B0 - A0 * Bp1) > epsilon * Math.Abs(A0 * Bp1))
+                while (System.Math.Abs(Ap1 * B0 - A0 * Bp1) > epsilon * System.Math.Abs(A0 * Bp1))
                 {
-                    if (Math.Abs(Bp1) > 1.0)
+                    if (System.Math.Abs(Bp1) > 1.0)
                     {
                         Am1 = A0 / Bp1;
                         A0 = Ap1 / Bp1;
@@ -251,7 +249,7 @@ namespace Team76.PTA.SpecialFunctions
 
                 if (x == 0.0) return (double)-double.MaxValue;
 
-                while (Math.Abs(Sn - Sm1) > epsilon * Math.Abs(Sm1))
+                while (System.Math.Abs(Sn - Sm1) > epsilon * System.Math.Abs(Sm1))
                 {
                     Sm1 = Sn;
                     y += 1.0;
@@ -260,7 +258,7 @@ namespace Team76.PTA.SpecialFunctions
                     hsum += (1.0 / y);
                     Sn += hsum * xn / factorial;
                 }
-                return (g + Math.Log(Math.Abs(x)) - Math.Exp(x) * Sn);
+                return (g + System.Math.Log(System.Math.Abs(x)) - System.Math.Exp(x) * Sn);
             }
 
 
@@ -316,14 +314,14 @@ namespace Team76.PTA.SpecialFunctions
                 double xx = (double)k;
                 double dx = x - xx;
                 double xxj = xx;
-                double edx = Math.Exp(dx);
+                double edx = System.Math.Exp(dx);
                 double Sm = 1.0;
                 double Sn = (edx - 1.0) / xxj;
                 double term = double.MaxValue;
                 double factorial = 1.0;
                 double dxj = 1.0;
 
-                while (Math.Abs(term) > epsilon * Math.Abs(Sn))
+                while (System.Math.Abs(term) > epsilon * System.Math.Abs(Sn))
                 {
                     j++;
                     factorial *= (double)j;
@@ -334,7 +332,7 @@ namespace Team76.PTA.SpecialFunctions
                     Sn += term;
                 }
 
-                return ei[k - 7] + Sn * Math.Exp(xx);
+                return ei[k - 7] + Sn * System.Math.Exp(xx);
             }
         }
 

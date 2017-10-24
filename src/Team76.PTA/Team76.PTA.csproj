@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Team76.PTA.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Team76.PTA.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CuttingEdge.Conditions, Version=1.2.0.11174, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
@@ -49,11 +51,12 @@
     <Compile Include="Dimensionless.cs" />
     <Compile Include="InfiniteHomogenousReservoir.cs" />
     <Compile Include="InfiniteHomogenousReservoir2.cs" />
+    <Compile Include="Models\InfiniteHomogenousModel.cs" />
     <Compile Include="OuterBoundaries.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpecialFunctions\ExponentialIntegral.cs" />
-    <Compile Include="SpecialFunctions\Laplace.cs" />
-    <Compile Include="SpecialFunctions\StehfestCoefficients.cs" />
+    <Compile Include="MathFunctions\ExponentialIntegral.cs" />
+    <Compile Include="MathFunctions\Laplace.cs" />
+    <Compile Include="MathFunctions\StehfestCoefficients.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

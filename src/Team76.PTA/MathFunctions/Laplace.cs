@@ -1,6 +1,6 @@
 using System;
 
-namespace Team76.PTA.SpecialFunctions
+namespace Team76.PTA.MathFunctions
 {
     internal static class Laplace
     {

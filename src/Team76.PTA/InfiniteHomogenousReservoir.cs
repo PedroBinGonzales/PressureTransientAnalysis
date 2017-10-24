@@ -1,7 +1,8 @@
 ﻿using System;
 using CuttingEdge.Conditions;
 using MathNet.Numerics.Differentiation;
-using Team76.PTA.SpecialFunctions;
+using Team76.PTA.MathFunctions;
+using MathNet.Numerics;
 
 namespace Team76.PTA
 {
@@ -47,12 +48,12 @@ namespace Team76.PTA
 
                 double sru = Math.Sqrt(u);
 
-                double p1 = MathNet.Numerics.SpecialFunctions.BesselK0(sru)
-                            + skinFactor * sru * MathNet.Numerics.SpecialFunctions.BesselK1(sru);
+                double p1 = SpecialFunctions.BesselK0(sru)
+                            + skinFactor * sru * SpecialFunctions.BesselK1(sru);
 
-                double p2 = u * sru * MathNet.Numerics.SpecialFunctions.BesselK1(sru)
-                            + cd * Math.Pow(u, 2) * MathNet.Numerics.SpecialFunctions.BesselK0(sru)
-                            + cd * Math.Pow(u, 2) * skinFactor * MathNet.Numerics.SpecialFunctions.BesselK1(sru) * sru;
+                double p2 = u * sru * SpecialFunctions.BesselK1(sru)
+                            + cd * Math.Pow(u, 2) * SpecialFunctions.BesselK0(sru)
+                            + cd * Math.Pow(u, 2) * skinFactor * SpecialFunctions.BesselK1(sru) * sru;
 
                 pwdR = StehfestCoefficients.Vi(i, n) * p1 / p2 + pwdR;
             }

@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Charting\ChartingTests.cs" />
-    <Compile Include="SpecialFunctions\ExponentialIntegralTests.cs" />
+    <Compile Include="MathFunctions\ExponentialIntegralTests.cs" />
     <Compile Include="Charting\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
