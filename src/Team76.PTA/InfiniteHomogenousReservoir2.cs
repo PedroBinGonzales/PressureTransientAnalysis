@@ -1,7 +1,8 @@
 ﻿using System;
 using CuttingEdge.Conditions;
+using MathNet.Numerics;
 using MathNet.Numerics.Differentiation;
-using Team76.PTA.SpecialFunctions;
+using Team76.PTA.MathFunctions;
 
 namespace Team76.PTA
 {
@@ -45,8 +46,8 @@ namespace Team76.PTA
         private static double PwdRinLaplaceSpace(double s, double cd, double skinFactor)
         {
             var rz = Math.Sqrt(s);
-            var p1 = MathNet.Numerics.SpecialFunctions.BesselK0(rz) + skinFactor * rz * MathNet.Numerics.SpecialFunctions.BesselK1(rz);
-            var p2 = s * (rz * MathNet.Numerics.SpecialFunctions.BesselK1(rz) + cd * s * p1);
+            var p1 = SpecialFunctions.BesselK0(rz) + skinFactor * rz * SpecialFunctions.BesselK1(rz);
+            var p2 = s * (rz * SpecialFunctions.BesselK1(rz) + cd * s * p1);
             return p1 / p2;
         }
     }

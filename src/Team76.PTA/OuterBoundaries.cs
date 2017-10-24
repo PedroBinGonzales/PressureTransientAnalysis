@@ -1,6 +1,6 @@
 ﻿using CuttingEdge.Conditions;
 using MathNet.Numerics.Differentiation;
-using Team76.PTA.SpecialFunctions;
+using Team76.PTA.MathFunctions;
 
 namespace Team76.PTA
 {

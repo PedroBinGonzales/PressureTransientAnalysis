@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Should;
-using Team76.PTA.SpecialFunctions;
+using Team76.PTA.MathFunctions;
 
 namespace Team76.PTA.Tests.SpecialFunctions
 {
