@@ -22,10 +22,10 @@ namespace Team76.PTA.Models
         public double Cd => 0.8936 * Well.C / (Reservoir.Porosity * Reservoir.Ct * Reservoir.H * Well.Rw * Well.Rw);
 
 
-        /// <summary>
-        /// Flow rate at surface, [STB/D]
-        /// </summary>
-        public double Q { get; set; }
+        ///// <summary>
+        ///// Flow rate at surface, [STB/D]
+        ///// </summary>
+        //public double Q { get; set; }
 
 
         /// <summary>
@@ -62,15 +62,16 @@ namespace Team76.PTA.Models
         /// Dimensionless pressure as defined for constant-rate production
         /// </summary>
         /// <param name="p">pressure, psi</param>
+        /// <param name="q">flow rate at surface, [STB/D]</param>
         /// <returns></returns>
-        public double DimensionlessPressure(double p)
+        public double DimensionlessPressure(double p, double q)
         {
-            return Reservoir.K * Reservoir.H * (Reservoir.Pi - p) / (141.2 * Q * Fluid.B * Fluid.Mu);
+            return Reservoir.K * Reservoir.H * (Reservoir.Pi - p) / (141.2 * q * Fluid.B * Fluid.Mu);
         }
 
-        public double FromDimensionlessPressure(double dp)
+        public double FromDimensionlessPressure(double dp, double q)
         {
-            return Reservoir.Pi - dp * (141.2 * Q * Fluid.B * Fluid.Mu) / (Reservoir.K * Reservoir.H);
+            return Reservoir.Pi - dp * (141.2 * q * Fluid.B * Fluid.Mu) / (Reservoir.K * Reservoir.H);
         }
 
         /// <summary>
@@ -89,11 +90,11 @@ namespace Team76.PTA.Models
         }
 
 
-        public double Pressure(double time)
+        public double Pressure(double time, double q)
         {
             var dt = DimensionlessTime(time);
             var pwd = Pwd(dt);
-            var pw = FromDimensionlessPressure(pwd);
+            var pw = FromDimensionlessPressure(pwd, q);
             return pw;
         }
     }
