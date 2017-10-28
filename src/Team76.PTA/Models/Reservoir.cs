@@ -23,10 +23,5 @@ namespace Team76.PTA.Models
         /// Matrix permeability, [md]
         /// </summary>
         public double K { get; set; }
-
-        /// <summary>
-        /// Original reservoir pressure, [psi]
-        /// </summary>
-        public double Pi { get; set; }
     }
 }

@@ -11,9 +11,10 @@ open FSharp.Charting.ChartTypes
 
 let fluid = Fluid(B = 1.0, Mu = 1.0)
 let well = Well(C=0.01, Rw = 0.3, SkinFactor = 0.0)
-let reservoir = Reservoir(Ct=1e-5, Porosity = 0.1, H = 100.0, K= 10.0, Pi = 5000.0)
+let reservoir = Reservoir(Ct=1e-5, Porosity = 0.1, H = 100.0, K= 10.0)
 let ptaModel = PtaModel(Fluid = fluid, Well = well, Reservoir = reservoir)
 let q = 1000.0
+let pi = 5000
 
 let time = 
     [ for x in 0.0..1.0..2000.0 -> x ]
