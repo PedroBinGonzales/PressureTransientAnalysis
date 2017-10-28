@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using MathNet.Numerics;
 using MathNet.Numerics.Differentiation;
 using Team76.PTA.MathFunctions;
@@ -14,8 +16,8 @@ namespace Team76.PTA.Models
         public Fluid Fluid { get; set; }
         public Well Well { get; set; }
         public Reservoir Reservoir { get; set; }
-        
-        
+
+
         /// <summary>
         /// Dimensionless wellbore storage, [dimensionless]
         /// </summary>
@@ -69,9 +71,28 @@ namespace Team76.PTA.Models
             return Reservoir.K * Reservoir.H * (Reservoir.Pi - p) / (141.2 * q * Fluid.B * Fluid.Mu);
         }
 
+        /// <summary>
+        /// Dimensionless pressure as defined for constant-rate production
+        /// </summary>
+        /// <param name="p">pressure, psi</param>
+        /// <param name="q">flow rate at surface, [STB/D]</param>
+        /// <returns></returns>
+        public double DimensionlessPressureDrop(double p, double q)
+        {
+            return Reservoir.K * Reservoir.H * (0 - p) / (141.2 * q * Fluid.B * Fluid.Mu);
+        }
+
+
+
+
         public double FromDimensionlessPressure(double dp, double q)
         {
             return Reservoir.Pi - dp * (141.2 * q * Fluid.B * Fluid.Mu) / (Reservoir.K * Reservoir.H);
+        }
+
+        public double FromDimensionlessPressureDrop(double dp, double q)
+        {
+            return 0 - dp * (141.2 * q * Fluid.B * Fluid.Mu) / (Reservoir.K * Reservoir.H);
         }
 
         /// <summary>
@@ -86,7 +107,7 @@ namespace Team76.PTA.Models
 
         public double FromDimensionlessTime(double dt)
         {
-            return dt * (Reservoir.Porosity * Fluid.Mu * Reservoir.Ct * Well.Rw * Well.Rw) /( 0.0002637 * Reservoir.K);
+            return dt * (Reservoir.Porosity * Fluid.Mu * Reservoir.Ct * Well.Rw * Well.Rw) / (0.0002637 * Reservoir.K);
         }
 
 
@@ -96,6 +117,42 @@ namespace Team76.PTA.Models
             var pwd = Pwd(dt);
             var pw = FromDimensionlessPressure(pwd, q);
             return pw;
+        }
+
+        public double PressureDrop(double time, double q)
+        {
+            var dt = DimensionlessTime(time);
+            var pwd = Pwd(dt);
+            var pw = FromDimensionlessPressureDrop(pwd, q);
+            return pw;
+        }
+
+        public double PressureDrop(double time, Tuple<double, double>[] data)
+        {
+            var p = 0.0;
+            var times = data.Where(x => x.Item1 < time).Select(x => x.Item1).ToList();
+            var rates = data.Where(x => x.Item1 < time).Select(x => x.Item2).ToList();
+            var n = times.Count;
+
+            var stepRates = new List<double>();
+            var stepTimes = new List<double>();
+
+            for (int i = 0; i < n; i++)
+            {
+                stepRates.Add(i == 0 ? rates[i] : rates[i] - rates[i - 1]);
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                stepTimes.Add(i == 0 ? time : time - times[i]);
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                p = p + PressureDrop(stepTimes[i], stepRates[i]);
+            }
+
+            return p;
         }
     }
 }
