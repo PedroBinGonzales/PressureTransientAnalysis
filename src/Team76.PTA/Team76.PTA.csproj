@@ -52,6 +52,8 @@
     <Compile Include="InfiniteHomogenousReservoir.cs" />
     <Compile Include="MathFunctions\Helpers.cs" />
     <Compile Include="Models\Fluid.cs" />
+    <Compile Include="Models\InfiniteHomogenousWithLinearSealingFaultPtaModel.cs" />
+    <Compile Include="Models\PtaModelBase.cs" />
     <Compile Include="Models\Reservoir.cs" />
     <Compile Include="Models\InfiniteHomogenousPtaModel.cs" />
     <Compile Include="Models\Well.cs" />

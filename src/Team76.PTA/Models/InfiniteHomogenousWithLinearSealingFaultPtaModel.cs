@@ -1,20 +1,29 @@
 using System;
 using MathNet.Numerics;
 using Team76.PTA.MathFunctions;
-#pragma warning disable 1591
 
 namespace Team76.PTA.Models
 {
     /// <summary>
     /// Infinite Homogenous PTA Model
     /// </summary>
-    public class InfiniteHomogenousPtaModel: PtaModelBase
+    public class InfiniteHomogenousWithLinearSealingFaultPtaModel : PtaModelBase
     {
-        public InfiniteHomogenousPtaModel(Fluid fluid, Well well, Reservoir reservoir): base(fluid,well,reservoir)
-        {
+        private readonly double _l;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fluid"></param>
+        /// <param name="well"></param>
+        /// <param name="reservoir"></param>
+        /// <param name="l">distance to linear sealing fault, [ft]</param>
+        public InfiniteHomogenousWithLinearSealingFaultPtaModel(Fluid fluid, Well well, Reservoir reservoir, double l) : base(fluid, well, reservoir)
+        {
+            _l = l;
         }
 
+        /// <inheritdoc />
         public override double PressureDrop(double time, double q)
         {
             var dt = Td(time);
@@ -31,6 +40,11 @@ namespace Team76.PTA.Models
             return p1 / p2;
         }
 
+        private double PwDbLinearSealingFault(double td)
+        {
+            return -0.5 * ExponentialIntegral.Evaluate(-Ld() * Ld() / td);
+        }
+
         /// <summary>
         /// Dimensionless wellbore pressure
         /// </summary>
@@ -38,7 +52,9 @@ namespace Team76.PTA.Models
         /// <returns></returns>
         private double Pwd(double td)
         {
-            return Laplace.InverseTransform(PwdRinLaplaceSpace, td);
+            return Laplace.InverseTransform(PwdRinLaplaceSpace, td) + PwDbLinearSealingFault(td);
         }
+
+        private double Ld() => Well.DimensionlessDistance(_l);
     }
 }

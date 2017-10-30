@@ -32,9 +32,8 @@ let data = [|(0.0,1000.0);(1000.0,0.0)|]
 
 let timePressure2 = time |> Seq.map (fun x ->(x, pi- ptaModel.PressureDrop(x, data)))
 
-let chart2 =  Chart.Line (timePressure2, Name ="pressure vs time", Color = Color.Blue)
+let chart2 =  Chart.Line (timePressure2, Name ="pressure vs time 2", Color = Color.Blue)
             |> Chart.WithXAxis(Min = 0.0, Log = false, LabelStyle = LabelStyle(Format = "F0"))
             |> Chart.WithXAxis(Enabled = true, Title = "time, [hr]")             
             |> Chart.WithYAxis(Min = 0.0, Log = false, LabelStyle = LabelStyle(Format = "F0"))
-            |> Chart.WithYAxis(Enabled = true, Title = "pressure, [psi]") 
-
+            |> Chart.WithYAxis(Enabled = true, Title = "pressure, [psi]")

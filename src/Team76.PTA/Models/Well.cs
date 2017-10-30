@@ -22,11 +22,11 @@
         public double C { get; set; }
 
         /// <summary>
-        /// Dimensionless radius
+        /// Dimensionless distance
         /// </summary>
-        /// <param name="r">distance from the center of wellbore, ft</param>
+        /// <param name="l">distance from the center of wellbore, ft</param>
         /// <returns></returns>
-        public double DimensionlessRadius(double r) => r / Rw;
+        public double DimensionlessDistance(double l) => l / Rw;
 
     }
 }
