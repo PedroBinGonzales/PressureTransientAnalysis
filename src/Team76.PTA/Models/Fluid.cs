@@ -1,5 +1,8 @@
 ﻿namespace Team76.PTA.Models
 {
+    /// <summary>
+    /// Fluid properties
+    /// </summary>
     public class Fluid
     {
 

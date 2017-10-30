@@ -23,30 +23,24 @@ namespace Team76.PTA.Tests.Charting
             var skinFactor = 0.0;
             var cd = 0.0;
 
-            Func<double, double> f1 = (x) => InfiniteHomogenousReservoir2.PwdR(x, cd, skinFactor);
-            var dp1 = GetXValues().Select(c => new ScatterPoint(c, f1(c)));
-            var ls1 = new ScatterSeries() { Title = "PwdR2" };
-            ls1.Points.AddRange(dp1);
+            Func<double, double> f1 = (x) => InfiniteHomogenousReservoir.PwdR(x, cd, skinFactor);
+            var dp2 = GetXValues().Select(c => new DataPoint(c, f1(c)));
+            var ls1 = new LineSeries() { Title = "PwdR" };
+            ls1.Points.AddRange(dp2);
 
-            Func<double, double> f2 = (x) => InfiniteHomogenousReservoir.PwdR(x, cd, skinFactor);
-            var dp2 = GetXValues().Select(c => new DataPoint(c, f2(c)));
-            var ls2 = new LineSeries() { Title = "PwdR" };
-            ls2.Points.AddRange(dp2);
-
-            Func<double, double> f3 = (x) => InfiniteHomogenousReservoir.Pd(x, 1.0);
-            var dp3 = GetXValues().Select(c => new DataPoint(c, f3(c)));
-            var ls3 = new LineSeries() { Title = "Pd rd = 1.0" };
-            ls3.Points.AddRange(dp3);
+            Func<double, double> f2 = (x) => InfiniteHomogenousReservoir.Pd(x, 1.0);
+            var dp3 = GetXValues().Select(c => new DataPoint(c, f2(c)));
+            var ls2 = new LineSeries() { Title = "Pd rd = 1.0" };
+            ls2.Points.AddRange(dp3);
 
 
             var pm = new PlotModel() { Title = nameof(InfHomPressureDropPlots) }; ;
             pm.Axes.Add(new LogarithmicAxis() { Position = AxisPosition.Bottom, AbsoluteMinimum = 0.001 });
             pm.Axes.Add(new LogarithmicAxis() { Position = AxisPosition.Left, AbsoluteMinimum = 0.001 });
             pm.LegendPlacement = LegendPlacement.Outside;
-
+;
             pm.Series.Add(ls1);
             pm.Series.Add(ls2);
-            pm.Series.Add(ls3);
 
             ShowPlot(pm);
         }
@@ -106,14 +100,14 @@ namespace Team76.PTA.Tests.Charting
             var cd = 10;
             var skin = 2;
 
-            Func<double, double> f1 = (x) => InfiniteHomogenousReservoir2.PwdR(x, cd, skin);
+            Func<double, double> f1 = (x) => InfiniteHomogenousReservoir.PwdR(x, cd, skin);
             var dp1 = GetXValues().Select(c => new DataPoint(c / cd, f1(c) / cd));
             var ls1 = new LineSeries() { Title = $"PwdR2 Skin={skin} CD={cd}" };
             ls1.Points.AddRange(dp1);
             pm.Series.Add(ls1);
 
 
-            Func<double, double> f2 = (x) => InfiniteHomogenousReservoir2.PwdRDerivative(x, cd, 0);
+            Func<double, double> f2 = (x) => InfiniteHomogenousReservoir.PwdRDerivative(x, cd, 0);
             var dp2 = GetXValues().Select(c => new DataPoint(c / cd, f2(c) / cd));
             var ls2 = new LineSeries() { Title = $"DirPwdR2 Skin={skin} CD={cd}" };
             ls2.Points.AddRange(dp2);
@@ -139,7 +133,7 @@ namespace Team76.PTA.Tests.Charting
             var skin =5;
             var Ld = 500;
 
-            Func<double, double> f1 = (x) => InfiniteHomogenousReservoir2.PwdR(x, cd, skin) +
+            Func<double, double> f1 = (x) => InfiniteHomogenousReservoir.PwdR(x, cd, skin) +
                 OuterBoundaries.PwDbLinearSealingFault(x, Ld);
             var dp1 = GetXValues().Select(c => new DataPoint(c / cd, f1(c) / cd));
             var ls1 = new LineSeries() { Title = $"PwdR2 Skin={skin} CD={cd}" };
@@ -147,7 +141,7 @@ namespace Team76.PTA.Tests.Charting
             pm.Series.Add(ls1);
 
 
-            Func<double, double> f2 = (x) => InfiniteHomogenousReservoir2.PwdRDerivative(x, cd, 0)
+            Func<double, double> f2 = (x) => InfiniteHomogenousReservoir.PwdRDerivative(x, cd, 0)
                 + OuterBoundaries.PwDbLinearSealingFaultDerivative(x, Ld);
 
             var dp2 = GetXValues().Select(c => new DataPoint(c / cd, f2(c) / cd));
@@ -191,7 +185,7 @@ namespace Team76.PTA.Tests.Charting
 
         private LineSeries GetPwdR2Series(double skin, double cd)
         {
-            Func<double, double> f = (x) => InfiniteHomogenousReservoir2.PwdR(x, cd, skin);
+            Func<double, double> f = (x) => InfiniteHomogenousReservoir.PwdR(x, cd, skin);
             var dp = GetXValues().Select(c => new DataPoint(c, f(c)));
             var ls = new LineSeries() { Title = $"PwdR2 Skin={skin} CD={cd}" };
             ls.Points.AddRange(dp);
@@ -200,7 +194,7 @@ namespace Team76.PTA.Tests.Charting
 
         private LineSeries GetDirPwdR2Series(double skin, double cd)
         {
-            Func<double, double> f = (x) => InfiniteHomogenousReservoir2.PwdRDerivative(x, cd, skin);
+            Func<double, double> f = (x) => InfiniteHomogenousReservoir.PwdRDerivative(x, cd, skin);
             var dp = GetXValues().Select(c => new DataPoint(c, f(c)));
             var ls = new LineSeries() { Title = $"DirPwdR2 Skin={skin} CD={cd}" };
             ls.Points.AddRange(dp);

@@ -9,13 +9,20 @@ using Team76.PTA.MathFunctions;
 namespace Team76.PTA.Models
 {
     /// <summary>
-    /// Mock pta model for inf hom reservoir
+    /// Infinite Homogenous PTA Model
     /// </summary>
-    public class PtaModel
+    public class InfiniteHomogenousPtaModel
     {
-        public Fluid Fluid { get; set; }
-        public Well Well { get; set; }
-        public Reservoir Reservoir { get; set; }
+        private readonly Fluid _fluid;
+        private readonly Well _well;
+        private readonly Reservoir _reservoir;
+
+        public InfiniteHomogenousPtaModel(Fluid fluid, Well well, Reservoir reservoir)
+        {
+            _fluid = fluid;
+            _well = well;
+            _reservoir = reservoir;
+        }
 
         /// <summary>
         /// Pressure Drop, [psi]
@@ -69,12 +76,12 @@ namespace Team76.PTA.Models
         /// <summary>
         /// Dimensionless wellbore storage, [dimensionless]
         /// </summary>
-        private double Cd() => 0.8936 * Well.C / (Reservoir.Porosity * Reservoir.Ct * Reservoir.H * Well.Rw * Well.Rw);
+        private double Cd() => 0.8936 * _well.C / (_reservoir.Porosity * _reservoir.Ct * _reservoir.H * _well.Rw * _well.Rw);
 
         private double PwdRinLaplaceSpace(double s)
         {
             var rz = Math.Sqrt(s);
-            var p1 = SpecialFunctions.BesselK0(rz) + Well.SkinFactor * rz * SpecialFunctions.BesselK1(rz);
+            var p1 = SpecialFunctions.BesselK0(rz) + _well.SkinFactor * rz * SpecialFunctions.BesselK1(rz);
             var p2 = s * (rz * SpecialFunctions.BesselK1(rz) + Cd() * s * p1);
             return p1 / p2;
         }
@@ -89,9 +96,15 @@ namespace Team76.PTA.Models
             return Laplace.InverseTransform(PwdRinLaplaceSpace, td);
         }
 
+        /// <summary>
+        /// Pressure drop, [psi]
+        /// </summary>
+        /// <param name="dp">dimensionless pressure drop</param>
+        /// <param name="q">flow rate at surface, [STB/D]</param>
+        /// <returns></returns>
         private double FromDimensionlessPressureDrop(double dp, double q)
         {
-            return 0 - dp * (141.2 * q * Fluid.B * Fluid.Mu) / (Reservoir.K * Reservoir.H);
+            return dp * (141.2 * q * _fluid.B * _fluid.Mu) / (_reservoir.K * _reservoir.H);
         }
 
         /// <summary>
@@ -101,7 +114,7 @@ namespace Team76.PTA.Models
         /// <returns></returns>
         private double Td(double t)
         {
-            return 0.0002637 * Reservoir.K * t / (Reservoir.Porosity * Fluid.Mu * Reservoir.Ct * Well.Rw * Well.Rw);
+            return 0.0002637 * _reservoir.K * t / (_reservoir.Porosity * _fluid.Mu * _reservoir.Ct * _well.Rw * _well.Rw);
         }
     }
 }

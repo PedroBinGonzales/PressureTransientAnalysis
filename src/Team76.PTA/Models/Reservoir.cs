@@ -1,7 +1,8 @@
-﻿#pragma warning disable 1591
-
-namespace Team76.PTA.Models
+﻿namespace Team76.PTA.Models
 {
+    /// <summary>
+    /// Reservoir properties
+    /// </summary>
     public class Reservoir
     {
         /// <summary>

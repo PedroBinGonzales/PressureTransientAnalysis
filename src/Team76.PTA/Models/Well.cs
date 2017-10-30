@@ -1,5 +1,8 @@
 ﻿namespace Team76.PTA.Models
 {
+    /// <summary>
+    /// Well properties
+    /// </summary>
     public class Well
     {
         /// <summary>

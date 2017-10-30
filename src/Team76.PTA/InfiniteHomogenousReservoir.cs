@@ -31,35 +31,13 @@ namespace Team76.PTA
         /// <param name="td">dimensionless time</param>
         /// <param name="cd">dimensionless wellbore storage</param>
         /// <param name="skinFactor">skin factor</param>
-        /// <returns>System.Double.</returns>
+        /// <returns></returns>
         public static double PwdR(double td, double cd, double skinFactor)
         {
-
             Condition.Requires(td, nameof(td)).IsGreaterOrEqual(0.0);
             Condition.Requires(cd, nameof(cd)).IsGreaterOrEqual(0.0);
 
-            var n = 14;
-
-            double pwdR = 0;
-
-            for (int i = 1; i <= n; i++)
-            {
-                double u = i * Math.Log(2.0) / td;
-
-                double sru = Math.Sqrt(u);
-
-                double p1 = SpecialFunctions.BesselK0(sru)
-                            + skinFactor * sru * SpecialFunctions.BesselK1(sru);
-
-                double p2 = u * sru * SpecialFunctions.BesselK1(sru)
-                            + cd * Math.Pow(u, 2) * SpecialFunctions.BesselK0(sru)
-                            + cd * Math.Pow(u, 2) * skinFactor * SpecialFunctions.BesselK1(sru) * sru;
-
-                pwdR = StehfestCoefficients.Vi(i, n) * p1 / p2 + pwdR;
-            }
-            pwdR = (Math.Log(2) / td) * pwdR;
-
-            return pwdR;
+            return Laplace.InverseTransform((x) => PwdRinLaplaceSpace(x, cd, skinFactor), td);
         }
 
         /// <summary>
@@ -77,6 +55,14 @@ namespace Team76.PTA
             var nd = new NumericalDerivative();
             var d = nd.EvaluateDerivative(c => PwdR(c, cd, skinFactor), td, 1);
             return d * td;
+        }
+
+        private static double PwdRinLaplaceSpace(double s, double cd, double skinFactor)
+        {
+            var rz = Math.Sqrt(s);
+            var p1 = SpecialFunctions.BesselK0(rz) + skinFactor * rz * SpecialFunctions.BesselK1(rz);
+            var p2 = s * (rz * SpecialFunctions.BesselK1(rz) + cd * s * p1);
+            return p1 / p2;
         }
     }
 }
