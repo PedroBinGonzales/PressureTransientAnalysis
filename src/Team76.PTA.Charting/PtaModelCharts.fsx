@@ -9,8 +9,8 @@ open Team76.PTA.Models
 open FSharp.Charting.ChartTypes
 
 let fluid = Fluid(B = 1.0, Mu = 1.0)
-let well = Well(C=0.01, Rw = 0.3, SkinFactor = 0.0)
-let reservoir = Reservoir(Ct=1e-5, Porosity = 0.1, H = 100.0, K= 10.0)
+let well = Well(C = 0.01, Rw = 0.3, SkinFactor = 0.0)
+let reservoir = Reservoir(Ct= 1e-5, Porosity = 0.1, H = 100.0, K = 10.0)
 
 let q = 1000.0
 let pi = 5000.0
@@ -45,30 +45,31 @@ let timePressureChart = Chart.Combine(
      Chart.Line(timePressure6,Name="InfHomWithPerpendicularMixedBoundariesPtaModel")])
                         |> Chart.WithXAxis(Min = 0.01, Log = true, LabelStyle = LabelStyle(Format = "F0"))
                         |> Chart.WithXAxis(Enabled = true, Title = "time, [hr]")             
-                        |> Chart.WithYAxis(Min = 0.01, Log = true, LabelStyle = LabelStyle(Format = "F0"))
+                        |> Chart.WithYAxis(Min = 0.01, Max= 10000.0, Log = true, LabelStyle = LabelStyle(Format = "F0"))
                         |> Chart.WithYAxis(Enabled = true, Title = "pressure, [psi]") 
                         |> Chart.WithLegend(Enabled = true, Docking = Docking.Bottom, InsideArea = false, Alignment = StringAlignment.Center)
 
-//does not work
 
-//let timeDPressure1 = time |> Seq.map (fun x ->(x, ptaModel1.PressureDropDerivative(x, q)))
-//let timeDPressure2 = time |> Seq.map (fun x ->(x, ptaModel2.PressureDropDerivative(x, q)))
-//let timeDPressure3 = time |> Seq.map (fun x ->(x, ptaModel3.PressureDropDerivative(x, q)))
-//let timeDPressure4 = time |> Seq.map (fun x ->(x, ptaModel4.PressureDropDerivative(x, q)))
-//let timeDPressure5 = time |> Seq.map (fun x ->(x, ptaModel5.PressureDropDerivative(x, q)))
-//let timeDPressure6 = time |> Seq.map (fun x ->(x, ptaModel6.PressureDropDerivative(x, q)))
+let timeDPressure1 = time |> Seq.map (fun x ->(x, ptaModel1.PressureDropDerivative(x, q))) |> Seq.map (fun (x,y) -> (x, max y 0.01))
+let timeDPressure2 = time |> Seq.map (fun x ->(x, ptaModel2.PressureDropDerivative(x, q))) |> Seq.map (fun (x,y) -> (x, max y 0.01))
+let timeDPressure3 = time |> Seq.map (fun x ->(x, ptaModel3.PressureDropDerivative(x, q))) |> Seq.map (fun (x,y) -> (x, max y 0.01))
+let timeDPressure4 = time |> Seq.map (fun x ->(x, ptaModel4.PressureDropDerivative(x, q))) |> Seq.map (fun (x,y) -> (x, max y 0.01))
+let timeDPressure5 = time |> Seq.map (fun x ->(x, ptaModel5.PressureDropDerivative(x, q))) |> Seq.map (fun (x,y) -> (x, max y 0.01))
+let timeDPressure6 = time |> Seq.map (fun x ->(x, ptaModel6.PressureDropDerivative(x, q))) |> Seq.map (fun (x,y) -> (x, max y 0.01))
 
-//let timeDPressureChart =
-//    Chart.Combine(
-//   [ Chart.Line(timeDPressure1,Name="InfHomPtaModel")
-//     Chart.Line(timeDPressure2,Name="InfHomWithLinearSealingFaultPtaModel") 
-//     Chart.Line(timeDPressure3,Name="InfHomWithLinearConstantPressurePtaModel")
-//     Chart.Line(timeDPressure4,Name="InfHomWithPerpendicularSealingFaultsPtaModel")
-//     Chart.Line(timeDPressure5,Name="InfHomWithPerpendicularConstantPressuresPtaModel")
-//     Chart.Line(timeDPressure6,Name="InfHomWithPerpendicularMixedBoundariesPtaModel")
-//     ])
-//    |> Chart.WithXAxis(Min = 0.01, Log = true, LabelStyle = LabelStyle(Format = "F0"))
-//    |> Chart.WithXAxis(Enabled = true, Title = "time, [hr]")             
-//    |> Chart.WithYAxis(Min = 0.01, Log = true, LabelStyle = LabelStyle(Format = "F0"))
-//    |> Chart.WithYAxis(Enabled = true, Title = "pressure, [psi]") 
-//    |> Chart.WithLegend(Enabled = true, Docking = Docking.Bottom, InsideArea = false, Alignment = StringAlignment.Center)
+let timeDPressureChart =
+    Chart.Combine(
+   [ Chart.Line(timeDPressure1,Name="InfHomPtaModel")
+     Chart.Line(timeDPressure2,Name="InfHomWithLinearSealingFaultPtaModel") 
+     Chart.Line(timeDPressure3,Name="InfHomWithLinearConstantPressurePtaModel")
+     Chart.Line(timeDPressure4,Name="InfHomWithPerpendicularSealingFaultsPtaModel")
+     Chart.Line(timeDPressure5,Name="InfHomWithPerpendicularConstantPressuresPtaModel")
+     Chart.Line(timeDPressure6,Name="InfHomWithPerpendicularMixedBoundariesPtaModel")
+     ])
+    |> Chart.WithXAxis(Min = 0.01, Log = true, LabelStyle = LabelStyle(Format = "F0"))
+    |> Chart.WithXAxis(Enabled = true, Title = "time, [hr]")             
+    |> Chart.WithYAxis(Min = 0.01, Max= 10000.0, Log = true, LabelStyle = LabelStyle(Format = "F0"))
+    |> Chart.WithYAxis(Enabled = true, Title = "dP*t, [psi]") 
+    |> Chart.WithLegend(Enabled = true, Docking = Docking.Bottom, InsideArea = false, Alignment = StringAlignment.Center)
+
+// does not show 

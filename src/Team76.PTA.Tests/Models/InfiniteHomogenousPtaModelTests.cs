@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using NUnit.Framework;
 using Should;
 using Team76.PTA.Models;
@@ -8,25 +9,48 @@ using Team76.PTA.PtaModels;
 namespace Team76.PTA.Tests.Models
 {
     [TestFixture]
-    public class InfiniteHomogenousPtaModelTests
+    public class InfHomPtaModelTests
     {
 
-        [Test]
-        public void PressureDropTest()
+        [Test, Ignore("")]
+        public void PrintPtaPressureDropTest()
         {
             var fluid = new Fluid() { B = 1, Mu = 1 };
             var well = new Well() { C = 1, Rw = 0.15, SkinFactor = 0 };
             var reservoir = new Reservoir() { Ct = 0.00001, Porosity = 0.2, H = 10, K = 10};
-            var l = 1000;
-            var pta = new InfHomPtaModel(fluid, well, reservoir);
-            var pta2 = new InfHomWithLinearSealingFaultPtaModel(fluid,well,reservoir,l);
+            var l1 = 1000;
+            var l2 = 1000;
+            var pta1 = new InfHomPtaModel(fluid, well, reservoir);
+            var pta2 = new InfHomWithLinearSealingFaultPtaModel(fluid, well, reservoir,l1);
+            var pta3 = new InfHomWithLinearConstantPressurePtaModel(fluid, well, reservoir, l1);
+            var pta4 = new InfHomWithPerpendicularSealingFaultsPtaModel(fluid, well, reservoir, l1, l2);
+            var pta5 = new InfHomWithPerpendicularConstantPressuresPtaModel(fluid, well, reservoir, l1,l2);
+            var pta6 = new InfHomWithPerpendicularMixedBoundariesPtaModel(fluid, well, reservoir, l1, l2);
+
+
             var q = 500;
-            var times = Enumerable.Range(0, 1000);
+            var times = Enumerable.Range(0, 10000);
             foreach (var time in times)
             {
-                var p = pta.PressureDrop(time, q);
-                var p2 = pta2.PressureDrop(time, q);
-                Console.WriteLine($"{time} : {p} {p2}");
+                StringBuilder sb = new StringBuilder();
+                sb
+                    .Append(time + " ")
+                    .Append(pta1.PressureDrop(time, q) + " ")
+                    .Append(pta2.PressureDrop(time, q)+ " ")
+                    .Append(pta3.PressureDrop(time, q) + " ")
+                    .Append(pta4.PressureDrop(time, q) + " ")
+                    .Append(pta5.PressureDrop(time, q) + " ")
+                    .Append(pta5.PressureDrop(time, q) + " ")
+                    .Append(pta6.PressureDrop(time, q) + " ")
+                    .Append(pta1.PressureDropDerivative(time, q) + " ")
+                    .Append(pta2.PressureDropDerivative(time, q) + " ")
+                    .Append(pta3.PressureDropDerivative(time, q) + " ")
+                    .Append(pta4.PressureDropDerivative(time, q) + " ")
+                    .Append(pta5.PressureDropDerivative(time, q) + " ")
+                    .Append(pta5.PressureDropDerivative(time, q) + " ")
+                    .Append(pta6.PressureDropDerivative(time, q) + " ")
+                    ;
+                Console.WriteLine(sb.ToString());
             }
         }
 
