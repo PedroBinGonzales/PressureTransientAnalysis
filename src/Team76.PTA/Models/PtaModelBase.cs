@@ -12,6 +12,12 @@ namespace Team76.PTA.Models
         protected readonly Well Well;
         protected readonly Reservoir Reservoir;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fluid"></param>
+        /// <param name="well"></param>
+        /// <param name="reservoir"></param>
         protected PtaModelBase(Fluid fluid, Well well, Reservoir reservoir)
         {
             Fluid = fluid;
@@ -71,11 +77,11 @@ namespace Team76.PTA.Models
         /// <summary>
         /// Dimensionless time
         /// </summary>
-        /// <param name="t">elapsed time, hours</param>
+        /// <param name="time">elapsed time, hours</param>
         /// <returns></returns>
-        protected double Td(double t)
+        protected double Td(double time)
         {
-            return 0.0002637 * Reservoir.K * t / (Reservoir.Porosity * Fluid.Mu * Reservoir.Ct * Well.Rw * Well.Rw);
+            return 0.0002637 * Reservoir.K * time / (Reservoir.Porosity * Fluid.Mu * Reservoir.Ct * Well.Rw * Well.Rw);
         }
 
         /// <summary>
@@ -89,6 +95,12 @@ namespace Team76.PTA.Models
             return dp * (141.2 * q * Fluid.B * Fluid.Mu) / (Reservoir.K * Reservoir.H);
         }
 
+        /// <summary>
+        /// dP * time
+        /// </summary>
+        /// <param name="time">elapsed time, hours</param>
+        /// <param name="q">flow rate at surface, [STB/D]</param>
+        /// <returns></returns>
         public double PressureDropDerivative(double time, double q)
         {
             var nd = new NumericalDerivative();

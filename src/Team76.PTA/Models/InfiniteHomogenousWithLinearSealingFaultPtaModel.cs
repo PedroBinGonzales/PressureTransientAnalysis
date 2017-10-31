@@ -42,7 +42,8 @@ namespace Team76.PTA.Models
 
         private double PwDbLinearSealingFault(double td)
         {
-            return -0.5 * ExponentialIntegral.Evaluate(-Ld() * Ld() / td);
+            var ld = Well.DimensionlessDistance(_l);
+            return -0.5 * ExponentialIntegral.Evaluate(-ld * ld / td);
         }
 
         /// <summary>
@@ -54,7 +55,5 @@ namespace Team76.PTA.Models
         {
             return Laplace.InverseTransform(PwdRinLaplaceSpace, td) + PwDbLinearSealingFault(td);
         }
-
-        private double Ld() => Well.DimensionlessDistance(_l);
     }
 }
