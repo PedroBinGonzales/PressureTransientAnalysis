@@ -1,13 +1,12 @@
-using System;
-using MathNet.Numerics;
 using Team76.PTA.MathFunctions;
+using Team76.PTA.Models;
 
-namespace Team76.PTA.Models
+namespace Team76.PTA.PtaModels
 {
     /// <summary>
-    /// Infinite Homogenous PTA Model
+    /// Infinite Homogenous With Linear Sealing Fault PTA Model
     /// </summary>
-    public class InfiniteHomogenousWithLinearSealingFaultPtaModel : PtaModelBase
+    public class InfHomWithLinearSealingFaultPtaModel : InfHomPtaModel
     {
         private readonly double _l;
 
@@ -18,7 +17,7 @@ namespace Team76.PTA.Models
         /// <param name="well"></param>
         /// <param name="reservoir"></param>
         /// <param name="l">distance to linear sealing fault, [ft]</param>
-        public InfiniteHomogenousWithLinearSealingFaultPtaModel(Fluid fluid, Well well, Reservoir reservoir, double l) : base(fluid, well, reservoir)
+        public InfHomWithLinearSealingFaultPtaModel(Fluid fluid, Well well, Reservoir reservoir, double l) : base(fluid, well, reservoir)
         {
             _l = l;
         }
@@ -30,14 +29,6 @@ namespace Team76.PTA.Models
             var pwd = Pwd(dt);
             var pressureDrop = FromDimensionlessPressureDrop(pwd, q);
             return pressureDrop;
-        }
-
-        private double PwdRinLaplaceSpace(double s)
-        {
-            var rz = Math.Sqrt(s);
-            var p1 = SpecialFunctions.BesselK0(rz) + Well.SkinFactor * rz * SpecialFunctions.BesselK1(rz);
-            var p2 = s * (rz * SpecialFunctions.BesselK1(rz) + Cd() * s * p1);
-            return p1 / p2;
         }
 
         private double PwDbLinearSealingFault(double td)

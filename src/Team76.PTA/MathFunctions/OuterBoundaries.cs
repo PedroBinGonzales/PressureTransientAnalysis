@@ -1,8 +1,7 @@
 ﻿using CuttingEdge.Conditions;
 using MathNet.Numerics.Differentiation;
-using Team76.PTA.MathFunctions;
 
-namespace Team76.PTA
+namespace Team76.PTA.MathFunctions
 {
     /// <summary>
     /// 

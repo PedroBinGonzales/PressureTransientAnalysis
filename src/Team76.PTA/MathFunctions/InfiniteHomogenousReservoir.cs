@@ -1,10 +1,9 @@
 ﻿using System;
 using CuttingEdge.Conditions;
-using MathNet.Numerics.Differentiation;
-using Team76.PTA.MathFunctions;
 using MathNet.Numerics;
+using MathNet.Numerics.Differentiation;
 
-namespace Team76.PTA
+namespace Team76.PTA.MathFunctions
 {
     /// <summary>
     /// Infinite Homogenous Reservoir

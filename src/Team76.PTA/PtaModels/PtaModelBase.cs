@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MathNet.Numerics.Differentiation;
+using Team76.PTA.Models;
 
-namespace Team76.PTA.Models
+namespace Team76.PTA.PtaModels
 {
+    /// <summary>
+    /// Base PTA model
+    /// </summary>
     public abstract class PtaModelBase
     {
 

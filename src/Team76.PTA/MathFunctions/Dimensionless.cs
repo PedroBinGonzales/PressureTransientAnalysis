@@ -1,4 +1,4 @@
-﻿namespace Team76.PTA
+﻿namespace Team76.PTA.MathFunctions
 {
     /// <summary>
     /// 
