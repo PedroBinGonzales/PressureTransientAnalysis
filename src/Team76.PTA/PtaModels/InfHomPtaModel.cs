@@ -1,16 +1,18 @@
 using System;
 using MathNet.Numerics;
 using Team76.PTA.MathFunctions;
+using Team76.PTA.Models;
+
 #pragma warning disable 1591
 
-namespace Team76.PTA.Models
+namespace Team76.PTA.PtaModels
 {
     /// <summary>
     /// Infinite Homogenous PTA Model
     /// </summary>
-    public class InfiniteHomogenousPtaModel: PtaModelBase
+    public class InfHomPtaModel : PtaModelBase
     {
-        public InfiniteHomogenousPtaModel(Fluid fluid, Well well, Reservoir reservoir): base(fluid,well,reservoir)
+        public InfHomPtaModel(Fluid fluid, Well well, Reservoir reservoir): base(fluid,well,reservoir)
         {
 
         }
@@ -23,7 +25,7 @@ namespace Team76.PTA.Models
             return pressureDrop;
         }
 
-        private double PwdRinLaplaceSpace(double s)
+        protected double PwdRinLaplaceSpace(double s)
         {
             var rz = Math.Sqrt(s);
             var p1 = SpecialFunctions.BesselK0(rz) + Well.SkinFactor * rz * SpecialFunctions.BesselK1(rz);

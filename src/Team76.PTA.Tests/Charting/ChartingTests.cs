@@ -7,6 +7,7 @@ using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using Team76.PTA.MathFunctions;
 
 namespace Team76.PTA.Tests.Charting
 {
