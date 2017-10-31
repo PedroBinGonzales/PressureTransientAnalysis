@@ -50,13 +50,17 @@
   <ItemGroup>
     <Compile Include="Dimensionless.cs" />
     <Compile Include="InfiniteHomogenousReservoir.cs" />
-    <Compile Include="InfiniteHomogenousReservoir2.cs" />
-    <Compile Include="Models\InfiniteHomogenousModel.cs" />
+    <Compile Include="MathFunctions\Helpers.cs" />
+    <Compile Include="Models\Fluid.cs" />
+    <Compile Include="Models\InfiniteHomogenousWithLinearSealingFaultPtaModel.cs" />
+    <Compile Include="Models\PtaModelBase.cs" />
+    <Compile Include="Models\Reservoir.cs" />
+    <Compile Include="Models\InfiniteHomogenousPtaModel.cs" />
+    <Compile Include="Models\Well.cs" />
     <Compile Include="OuterBoundaries.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MathFunctions\ExponentialIntegral.cs" />
     <Compile Include="MathFunctions\Laplace.cs" />
-    <Compile Include="MathFunctions\StehfestCoefficients.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,6 +1,7 @@
 ﻿using System;
+using MathNet.Numerics;
 
-namespace Team76.PTA.MathFunctions
+namespace Team76.PTA.Tests.Sandbox
 {
     internal static class StehfestCoefficients
     {
