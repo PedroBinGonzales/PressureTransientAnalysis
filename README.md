@@ -30,15 +30,16 @@ Example
 This is a basic example which shows you how to solve a common problem:
 
 ``` csharp
-var fluid = new Fluid() { B = 1, Mu = 1 };
-var well = new Well() { C = 1, Rw = 0.15, SkinFactor = 0 };
-var reservoir = new Reservoir() { Ct = 0.00001, Porosity = 0.2, H = 10, K = 10};
-var pta = new InfHomPtaModel(fluid, well, reservoir);
+    var fluid = new Fluid() { B = 1, Ul = 1 };
+    var well = new Well() { C = 1, Rw = 0.15, SkinFactor = 0 };
+    var reservoir = new Reservoir() { Ct = 0.00001, Porosity = 0.2, H = 10, K = 10 };
+    var boundary = new LinearSealingFaultBoundary(well.Rw, 1000);
+    var pta = new PtaModel(fluid, well, reservoir, boundary);
 
-var q = 500;
-var time = 100;
+    var q = 500;
+    var time = 10;
 
-var pressureDrop = pta.PressureDrop(time, q);
+    var pressureDrop = pta.PressureDrop(time, q);
 ```
 
 

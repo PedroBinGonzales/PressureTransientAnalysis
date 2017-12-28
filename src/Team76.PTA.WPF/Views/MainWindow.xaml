@@ -1,0 +1,38 @@
+﻿<Window x:Class="Team76.PTA.WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:vm="clr-namespace:Team76.PTA.WPF.ViewModels"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="600" Width="800"
+        
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
+
+    <Grid>
+        <!--<ContentControl prism:RegionManager.RegionName="ContentRegion" />-->
+        <TabControl TabStripPlacement="Left">
+            <TabItem Header="No Boundary">
+                <oxy:PlotView Model="{Binding NoBoundary}" />
+            </TabItem>
+            <TabItem Header="Sealing Fault">
+                <oxy:PlotView Model="{Binding LinearSealingFaultBoundary}" />
+            </TabItem>
+            <TabItem Header="Constant Pressure">
+                <oxy:PlotView Model="{Binding LinearConstantPressureBoundary}" />
+            </TabItem>
+            <TabItem Header="2 Sealing Faults">
+                <oxy:PlotView Model="{Binding PerpendicularSealingFaultsBoundary}" />
+            </TabItem>
+            <TabItem Header="2 Constant Pressures">
+                <oxy:PlotView Model="{Binding PerpendicularConstantPressuresBoundary}" />
+            </TabItem>
+            <TabItem Header="Mixed Boundary">
+                <oxy:PlotView Model="{Binding PerpendicularMixedBoundary}" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

@@ -1,8 +1,10 @@
 using System;
 using CuttingEdge.Conditions;
+#pragma warning disable 1591
 
-namespace Team76.PTA.Tests.Sandbox
+namespace Team76.PTA.Obsolete
 {
+    [Obsolete("Old code", true)]
     public class InfHomRes
     {
         /// <summary>

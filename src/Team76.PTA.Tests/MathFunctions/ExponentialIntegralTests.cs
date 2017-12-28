@@ -2,7 +2,7 @@
 using Should;
 using Team76.PTA.MathFunctions;
 
-namespace Team76.PTA.Tests.SpecialFunctions
+namespace Team76.PTA.Tests.MathFunctions
 {
     [TestFixture]
     public class ExponentialIntegralTests

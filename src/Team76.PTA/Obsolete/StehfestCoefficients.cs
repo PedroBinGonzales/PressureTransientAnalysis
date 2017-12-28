@@ -1,8 +1,8 @@
 ﻿using System;
-using MathNet.Numerics;
 
-namespace Team76.PTA.Tests.Sandbox
+namespace Team76.PTA.Obsolete
 {
+    [Obsolete("Old code", true)]
     internal static class StehfestCoefficients
     {
         public static double Vi(int i, int n)

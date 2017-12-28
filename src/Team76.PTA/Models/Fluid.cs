@@ -9,7 +9,7 @@
         /// <summary>
         /// Viscosity, [cp]
         /// </summary>
-        public double Mu { get; set; }
+        public double Ul { get; set; }
 
 
         /// <summary>

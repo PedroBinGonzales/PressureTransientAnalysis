@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Team76.PTA</RootNamespace>
     <AssemblyName>Team76.PTA</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,12 +32,19 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Team76.PTA.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CuttingEdge.Conditions, Version=1.2.0.11174, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <HintPath>..\packages\CuttingEdge.Conditions.1.2.0.0\lib\NET35\CuttingEdge.Conditions.dll</HintPath>
     </Reference>
-    <Reference Include="MathNet.Numerics, Version=3.20.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MathNet.Numerics.3.20.0\lib\net40\MathNet.Numerics.dll</HintPath>
+    <Reference Include="MathNet.Numerics, Version=3.20.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.Signed.3.20.0\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,19 +56,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boundaries\BoundaryBase.cs" />
+    <Compile Include="Boundaries\LinearConstantPressureBoundary.cs" />
+    <Compile Include="Boundaries\LinearSealingFaultBoundary.cs" />
+    <Compile Include="Boundaries\NoBoundary.cs" />
+    <Compile Include="Boundaries\PerpendicularConstantPressuresBoundary.cs" />
+    <Compile Include="Boundaries\PerpendicularMixedBoundaries.cs" />
+    <Compile Include="Boundaries\PerpendicularSealingFaultsBoundary.cs" />
+    <Compile Include="MathFunctions\DataAnalysis.cs" />
     <Compile Include="MathFunctions\Dimensionless.cs" />
     <Compile Include="MathFunctions\InfiniteHomogenousReservoir.cs" />
     <Compile Include="Models\Fluid.cs" />
-    <Compile Include="PtaModels\InfHomWithLinearConstantPressurePtaModel.cs" />
-    <Compile Include="PtaModels\InfHomWithLinearSealingFaultPtaModel.cs" />
-    <Compile Include="PtaModels\InfHomWithPerpendicularConstantPressuresPtaModel.cs" />
-    <Compile Include="PtaModels\InfHomWithPerpendicularMixedBoundariesPtaModel.cs" />
-    <Compile Include="PtaModels\InfHomWithPerpendicularSealingFaultsPtaModel.cs" />
-    <Compile Include="PtaModels\PtaModelBase.cs" />
+    <Compile Include="Models\PtaModel.cs" />
+    <Compile Include="Models\PtaModelBase.cs" />
     <Compile Include="Models\Reservoir.cs" />
-    <Compile Include="PtaModels\InfHomPtaModel.cs" />
     <Compile Include="Models\Well.cs" />
     <Compile Include="MathFunctions\OuterBoundaries.cs" />
+    <Compile Include="Obsolete\InfHomRes.cs" />
+    <Compile Include="Obsolete\StehfestCoefficients.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MathFunctions\ExponentialIntegral.cs" />
     <Compile Include="MathFunctions\Laplace.cs" />
